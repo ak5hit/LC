@@ -2,6 +2,8 @@ class ListNode(var `val`: Int) {
     var next: ListNode? = null
 }
 
+
+// Really un-smart solution to convert to array and swap
 class Solution {
     fun swapNodes(head: ListNode?, k: Int): ListNode? {
         val size = getLength(head)
@@ -39,5 +41,32 @@ class Solution {
         }
 
         return length
+    }
+}
+
+// good solution
+class Solution {
+    fun swapNodes(head: ListNode?, k: Int): ListNode? {
+        var nodeA: ListNode? = null
+        var nodeB = head
+        var temp = head
+        var counter = 1
+
+        while (temp != null) {
+            if (nodeA != null) {
+                nodeB = nodeB!!.next
+            }
+
+            if (counter == k) {
+                nodeA = temp
+            }
+
+            temp = temp.next
+            counter++
+        }
+
+        nodeA!!.`val` = nodeB!!.`val`.also { nodeB.`val` = nodeA.`val` }
+
+        return head
     }
 }
